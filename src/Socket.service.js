@@ -3,15 +3,17 @@ import { Subject } from "rxjs";
 
 const socket = openSocket("http://localhost:8000");
 
-export default class Socket {
-    static subject = new Subject();
-    static socketConnect = function () {
+export const subject = new Subject();
+export const Socket = () => {
         socket.on("timer", (res) => {
-            Socket.subject.next(res);
-        });
-        socket.emit("activateSocket", 1000);
-    };
+           subject.next(res);
+})
+
+socket.emit("activateSocket", 5000);
+
 }
+
+
 
 //----SERVER ON LOCALHOST:8000----------
 // const io = require('socket.io')();
@@ -28,4 +30,3 @@ export default class Socket {
 // io.listen(port);
 // console.log('listening on port ', port);
 
-//create a separate folder for server-side socketIO and run socket in background

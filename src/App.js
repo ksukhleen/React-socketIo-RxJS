@@ -1,33 +1,40 @@
 import React, {useEffect} from 'react';
-import Socket from "./Socket.service"
 import './App.css';
-
+import {subject, Socket} from "./Socket.service"
 
 function App() {
+  useEffect(() => {
+    Socket();
+  }, []);
+   
 
   useEffect(() => {
-    Socket.socketConnect();
-  }, []);
-
-  Socket.subject.subscribe({
-    next: (res) => console.log(res)
-  });
+    subject.subscribe({
+      next: (res) =>  console.log(res)
+    });
+  })
+   
+  const interrupt = () => {
+    subject.next("pause");
+  }
 
   return (
     <div className="App">
       <header className="App-header">
-        React socketIO connection using RxJS
+        React socketIO-RxJS boilerplate
           <p>
-          Check Console
+          Check Console!
       </p>
       </header>
-    
       <div>
-        This is a sample project which shows how the response from 
+        This is a boilerplate which shows how the response from 
         socketIO connection gets updated on react application
-        using RxJS.
-      
+        using RxJS. 
       </div>
+
+      <button onClick={interrupt}>
+          Click
+      </button>
     </div>
   );
 }
