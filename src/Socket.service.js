@@ -1,15 +1,19 @@
 import openSocket from "socket.io-client";
 import { Subject } from "rxjs";
 
-const socket = openSocket("http://localhost:8000");
-
+const socket = openSocket("http://localhost:8000", {
+        transports: ['websocket']
+      })
+    
 export const subject = new Subject();
 export const Socket = () => {
+        socket.emit("activateSocket", 1000);
         socket.on("timer", (res) => {
+                //    console.log((res))
            subject.next(res);
 })
 
-socket.emit("activateSocket", 5000);
+
 
 }
 

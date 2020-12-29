@@ -4,16 +4,22 @@ import {subject, Socket} from "./Socket.service"
 
 function App() {
   useEffect(() => {
-    Socket();
+    // Socket();
+    hh();
   }, []);
    
-
+  const hh = () => {
+    setTimeout(() => {
+     Socket();
+     console.log("hghshsb")
+    }, 5000)
+  }
   useEffect(() => {
     subject.subscribe({
       next: (res) =>  console.log(res)
     });
   })
-   
+  
   const interrupt = () => {
     subject.next("pause");
   }
